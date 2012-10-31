@@ -1,0 +1,55 @@
+Vagrant::Config.run do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  config.vm.define :node1 do |node_1|
+	node_1.vm.box = "lucid64"
+	node_1.vm.boot_mode = :gui
+	node_1.vm.network("172.17.0.2", :netmask => "255.255.0.0")
+	node_1.vm.customize do |vm|
+		vm.memory_size = 512
+		vm.cpu_count = 2
+		vm.name = "johntheripper1"
+	end
+	node_1.vm.provision :chef_solo do |chef|
+		chef.cookbooks_path = "cookbooks"
+		#chef.roles_path = "roles"
+		chef.add_recipe "test::users"
+  		chef.json.merge!({ 
+			#:run_list => [ "role[users]", "recipe[test::packages]", "recipe[test::hostsfiles]", "recipe[test::mpi]", "recipe[test::johntheripper]", "recipe[test::ssh]" ],
+			#:run_list => [ "recipe[test::users]", "recipe[test::packages]", "recipe[test::hostsfiles]", "recipe[test::mpi]", "recipe[test::johntheripper]", "recipe[test::ssh]" ],
+			:run_list => [ "recipe[test::users]", "recipe[test::hostsfiles]",  "recipe[test::ssh]" ],
+			:john_hostname => "headnode",
+			:mpi_password => "demo",
+			:system => "linux-x86-64",
+  		})
+  	end
+  end
+
+  config.vm.define :node2 do |node_2|
+	node_2.vm.box = "lucid64"
+	node_2.vm.boot_mode = :gui
+	node_2.vm.network("172.17.0.3", :netmask => "255.255.0.0")
+	node_2.vm.customize do |vm|
+		vm.memory_size = 512
+		vm.cpu_count = 2
+		vm.name = "johntheripper2"
+	end
+	node_2.vm.provision :chef_solo do |chef|
+		chef.cookbooks_path = "cookbooks"
+		#chef.roles_path = "roles"
+		#chef.add_role "users"
+		chef.add_recipe "test::users"
+  		chef.json.merge!({ 
+			#:run_list => [ "role[users]", "recipe[test::packages]", "recipe[test::hostsfiles]", "recipe[test::mpi_worker]", "recipe[test::johntheripper]", "recipe[test::ssh_worker]" ],
+			#:run_list => [ "recipe[test::users]", "recipe[test::packages]", "recipe[test::hostsfiles]", "recipe[test::mpi_worker]", "recipe[test::johntheripper]", "recipe[test::ssh_worker]" ],
+			:run_list => [ "recipe[test::users]", "recipe[test::hostsfiles]", "recipe[test::ssh_worker]" ],
+			:john_hostname => "node1",
+			:mpi_password => "demo",
+			:system => "linux-x86-64",
+  		})
+  	end
+  end
+
+end

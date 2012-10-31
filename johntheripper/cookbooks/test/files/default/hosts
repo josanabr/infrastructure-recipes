@@ -1,0 +1,6 @@
+127.0.0.1 localhost
+172.17.0.2 headnode.demo.org headnode
+172.17.0.3 node1.demo.org node1
+172.17.0.4 node2.demo.org node2
+172.17.0.5 node3.demo.org node3
+172.17.0.6 node4.demo.org node4

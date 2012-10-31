@@ -1,0 +1,17 @@
+First of all, launch ProxyDNSVM. 
+In this case we assume that its IP address is 172.17.255.254.
+
+Now, assure that your VMs use ProxyDNSVM as default gateway and DNS machine.
+
+To do that, prepend to the /etc/resolv.conf file the following entry
+nameserver 172.17.255.254
+
+To change the default gateway, execute the following commands:
+route del default
+route add default gw 172.17.255.254 eth1
+
++------+
+| NOTE |-+
++------+ |
+  +------+
+The following recipe was created "proxydns.rb" and these templates "resolv.conf.erb" and "interfaces.erb"

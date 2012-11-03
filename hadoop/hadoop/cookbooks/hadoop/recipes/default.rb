@@ -6,3 +6,24 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+cookbook_file "/tmp/hadoop-1.0.4.tar.gz" do
+  source "hadoop-1.0.4.tar.gz"
+  mode 0600
+  owner "root"
+  group "admin"
+end
+
+execute "uncompress hadoop" do
+  user "root"
+  group "admin"
+  cwd "/usr/local/apps"
+  command "tar xfz /tmp/hadoop-1.0.4.tar.gz"
+  action :run
+end
+
+execute "symbolic link to hadoop" do
+  user "root"
+  group "admin"
+  cwd "/usr/local/apps"
+  command "ln -sf hadoop-1.0.4 hadoop"
+end

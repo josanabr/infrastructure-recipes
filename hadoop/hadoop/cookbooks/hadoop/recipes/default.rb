@@ -27,3 +27,21 @@ execute "symbolic link to hadoop" do
   cwd "/usr/local/apps"
   command "ln -sf hadoop-1.0.4 hadoop"
 end
+
+execute "changing owner" do
+  user "root"
+  group "admin"
+  cwd "/usr/local/apps"
+  command "chown -R hduser:hadoop hadoop"
+end
+
+package "lzop" do
+  action :install 
+end
+
+cookboo_file "/etc/profile.d/hadoop.sh" do
+  source "hadoop.sh"
+  mode 0644
+  owner "root"
+  group "admin"
+end

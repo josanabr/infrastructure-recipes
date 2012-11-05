@@ -1,1 +1,1 @@
-{ "run_list": ["recipe[hdfs]"] }
+{ "run_list": ["recipe[jdk]","recipe[hduser]","recipe[ipv6]","recipe[hadoop]","recipe[hdfs]"] }

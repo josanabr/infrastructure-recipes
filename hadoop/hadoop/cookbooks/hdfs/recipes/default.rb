@@ -6,10 +6,48 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-execute "modify hadoop-env.sh" do
+# This snippet code was obtained from https://github.com/opscode-cookbooks/dynect/blob/master/recipes/ec2.rb#L48-55
+#
+ruby_block "modify hadoop-env.sh" do
+  block do
+    rc = Chef::Util::FileEdit.new("/usr/local/apps/hadoop/conf/hadoop-env.sh")
+    rc.search_file_replace_line(/.*export JAVA.*/, "export JAVA_HOME=/usr/local/apps/jdk")
+    rc.write_file
+  end
+end
+
+directory "/app/hadoop/tmp" do
+  owner "hduser"
+  group "hadoop"
+  mode "0755"
+  recursive true
+end
+
+cookbook_file "/usr/local/apps/hadoop/conf/core-site.xml" do
+  source "core-site.xml"
+  owner "hduser"
+  group "hadoop"
+  mode 0664
+end
+
+cookbook_file "/usr/local/apps/hadoop/conf/mapred-site.xml" do
+  source "mapred-site.xml"
+  owner "hduser"
+  group "hadoop"
+  mode 0664
+end
+
+cookbook_file "/usr/local/apps/hadoop/conf/hdfs-site.xml" do
+  source "hdfs-site.xml"
+  owner "hduser"
+  group "hadoop"
+  mode 0644
+end
+
+execute "formatting - hdfs style" do
   user "hduser"
   group "hadoop"
-  cwd "/usr/local/apps/hadoop/conf"
-  command "sed 's/\# export JAVA.*/export JAVA_HOME=\/usr\/local\/apps\/jdk/g' hadoop-env.sh > tmp.txt ; mv tmp.txt hadoop-env.sh"
+  cwd "/home/hduser"
+  command "/usr/local/apps/hadoop/bin/hadoop namenode -format"
   action :run
 end

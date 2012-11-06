@@ -21,7 +21,7 @@ execute "uncompress hadoop" do
   action :run
 end
 
-execute "symbolic link to hadoop" do
+execute "rename hadoop directory" do
   user "root"
   group "admin"
   cwd "/usr/local/apps"

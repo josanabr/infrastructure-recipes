@@ -1,0 +1,1 @@
+{ "run_list": ["recipe[hduser::install-expect]","recipe[hostconf]", "recipe[hduser]", "recipe[hduser::enable-ssh]" ] }

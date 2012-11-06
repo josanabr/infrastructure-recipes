@@ -1,1 +1,3 @@
-{ "run_list": ["recipe[jdk]","recipe[hduser]","recipe[ipv6]","recipe[hadoop]","recipe[hdfs]"] }
+{ 
+"run_list": ["recipe[hostconf]","recipe[jdk]","recipe[hduser]","recipe[ipv6]","recipe[hadoop]","recipe[hdfs]"]
+}

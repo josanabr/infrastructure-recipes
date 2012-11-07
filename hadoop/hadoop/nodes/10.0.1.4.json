@@ -1,6 +1,7 @@
 { 
   "hostconf": {
-    "host_name": "slave01"
+    "host_name": "slave01",
+    "master": "master-2"
   },  
   "hadoop": {
     "replication": "1"

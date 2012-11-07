@@ -4,7 +4,7 @@ cookbook_file "/home/hduser/ssh-copy-id.ext" do
   owner "hduser"
   group "hadoop"
 end
-["slave01", "slave02"].each do |slave|
+["slave01", "slave02", "master-2"].each do |slave|
   execute "enable ssh access" do
     user "hduser"
     group "hadoop"

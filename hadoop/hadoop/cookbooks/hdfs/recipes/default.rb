@@ -44,10 +44,10 @@ template "/usr/local/apps/hadoop/conf/hdfs-site.xml" do
   mode 0644
 end
 
-execute "formatting - hdfs style" do
-  user "hduser"
-  group "hadoop"
-  cwd "/home/hduser"
-  command "/usr/local/apps/hadoop/bin/hadoop namenode -format"
-  action :run
-end
+#execute "formatting - hdfs style" do
+#  user "hduser"
+#  group "hadoop"
+#  cwd "/home/hduser"
+#  command "/usr/local/apps/hadoop/bin/hadoop namenode -format"
+#  action :run
+#end

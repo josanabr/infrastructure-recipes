@@ -1,9 +1,0 @@
---- 
-cursor_positions: 
-  - :path: cookbooks/jdk/files/default/jdk.sh
-    :cursor_offset: 38
-    :timestamp: 2012-11-03 11:20:20 -05:00
-  - :path: cookbooks/ipv6/files/default/ipv6-disabler
-    :cursor_offset: 121
-    :timestamp: 2012-11-03 12:00:57 -05:00
-files_to_retain: 0

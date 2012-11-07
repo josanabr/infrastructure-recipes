@@ -1,1 +1,10 @@
-{ "run_list": ["recipe[hduser::install-expect]","recipe[hostconf]", "recipe[hduser]", "recipe[hduser::enable-ssh]" ] }
+{ 
+  "hostconf": {
+    "host_name": "master-2",
+    "slaves": ["slave01", "slave02"]
+  },  
+  "hadoop": {
+    "replication": "1"
+  },
+  "run_list": ["recipe[hduser::install-expect]","recipe[hostconf]", "recipe[jdk]","recipe[hduser]", "recipe[hduser::enable-ssh]","recipe[ipv6]", "recipe[hadoop]", "recipe[hadoop::master]", "recipe[hdfs]" ] 
+}

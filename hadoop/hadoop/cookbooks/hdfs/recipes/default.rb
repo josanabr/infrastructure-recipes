@@ -23,22 +23,22 @@ directory "/app/hadoop/tmp" do
   recursive true
 end
 
-cookbook_file "/usr/local/apps/hadoop/conf/core-site.xml" do
-  source "core-site.xml"
+template "/usr/local/apps/hadoop/conf/core-site.xml" do
+  source "core-site.erb"
   owner "hduser"
   group "hadoop"
   mode 0664
 end
 
-cookbook_file "/usr/local/apps/hadoop/conf/mapred-site.xml" do
-  source "mapred-site.xml"
+template "/usr/local/apps/hadoop/conf/mapred-site.xml" do
+  source "mapred-site.erb"
   owner "hduser"
   group "hadoop"
   mode 0664
 end
 
-cookbook_file "/usr/local/apps/hadoop/conf/hdfs-site.xml" do
-  source "hdfs-site.xml"
+template "/usr/local/apps/hadoop/conf/hdfs-site.xml" do
+  source "hdfs-site.erb"
   owner "hduser"
   group "hadoop"
   mode 0644

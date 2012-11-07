@@ -1,1 +1,9 @@
-{ "run_list": ["recipe[hduser::install-expect]","recipe[hostconf]", "recipe[hduser]"] }
+{ 
+  "hostconf": {
+    "host_name": "slave01"
+  },  
+  "hadoop": {
+    "replication": "1"
+  },
+  "run_list": ["recipe[hduser::install-expect]","recipe[hostconf]", "recipe[jdk]","recipe[hduser]", "recipe[ipv6]", "recipe[hadoop]", "recipe[hdfs]"] 
+}

@@ -1,5 +1,5 @@
 class ConfigureNetwork(object):
-    def __init__(self, eth, ip, netmask, network, gateway, broadcast):
+    def __init__(self, eth, ip, network, netmask, broadcast, gateway):
         self.eth = eth
         self.ip = ip
         self.netmask = netmask

@@ -1,8 +1,5 @@
-# Usage mode
-# 	python REUtil.py -a 192.118.15.20 -i eth1 -n 192.118.0.0 -m 255.255.0.0 -b 192.118.255.255 -g 192.118.0.1 -f interfaces
 import re
 import time
-import argparse
 import os
 
 def timeInMillis():
@@ -115,14 +112,23 @@ def appendEthEntry(_file,eth,args):
 	removeLinesFromPattern1ToPattern2(_file,pattern,r"^iface.*|^auto.*|\n+")
 	writeNetworkIFFileEntries(_file,args)
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-f","--filename", help="Network filename e.g. interfaces")
-parser.add_argument("-a","--address", help="IP address")
-parser.add_argument("-i","--interface", help="Network interface e.g. eth0, eth1, ...")
-parser.add_argument("-n","--network", help="Network address")
-parser.add_argument("-b","--broadcast", help="Broadcast address")
-parser.add_argument("-g","--gateway", help="Gateway address")
-parser.add_argument("-m","--netmask", help="Network mask e.g. 255.255.0.0")
-args = parser.parse_args()
-
-appendEthEntry(args.filename, args.interface, args)
+def writeNetworkIFFileEntries(_file, eth, address, network, netmask, broadcast, gateway):
+	try:
+		file1 = open(_file,"a")
+	except IOError:
+		print "File not found"
+		return ""
+	file1.write( "auto %s\n"%eth )
+	file1.write( "iface %s inet static\n"%eth )
+	file1.write( "\taddress %s\n"%address )
+	file1.write( "\tnetwork %s\n"%network )
+	file1.write( "\tnetmask %s\n"%netmask )
+	file1.write( "\tbroadcast %s\n"%broadcast )
+	file1.write( "\tgateway %s\n"%gateway )
+	file1.close()
+def appendEthEntry(_file, eth, address, network, netmask, broadcast, gateway):
+	pattern = "^auto %s.*"%eth
+	removeLineWithPattern(_file,pattern)
+	pattern = "^iface %s.*"%eth
+	removeLinesFromPattern1ToPattern2(_file,pattern,r"^iface.*|^auto.*|\n+")
+	writeNetworkIFFileEntries(_file, eth, address, network, netmask, broadcast, gateway)

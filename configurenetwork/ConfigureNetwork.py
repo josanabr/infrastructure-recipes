@@ -10,4 +10,8 @@ class ConfigureNetwork(object):
         raise NotImplementedError
     def restart_service(self):
         raise NotImplementedError
+    def remove_auto_entry(self, _file, eth):
+        raise NotImplementedError
+    def remove_iface_entry(self, _file, eth):
+        raise NotImplementedError
 

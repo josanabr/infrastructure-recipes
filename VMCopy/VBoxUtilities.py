@@ -1,6 +1,8 @@
 import os
 import re
 from SFTPCopy import *
+from SSHCmd import *
+from fancy import *
 
 VBoxSK = "VBoxManage"
 
@@ -52,16 +54,21 @@ def exportVM(vm):
 		
 	return False
 
-vm_str = "cloudera hadoop"
-ssh_url = "ssh://josanabr@localhost:22"
+vm_str = "tmp_1353453240"
+ssh_url = "ssh://clouduser@192.168.28.57:22"
 remote_dir = "/tmp"
-exportVM(vm_str)
-copyViaSSH(ssh_url,"%s.ova"%vm_str,"%s/%s.ova"%(remote_dir,vm_str))
-
-
+remote_file = "%s/%s.ova"%(remote_dir,vm_str)
 # Check if a required vm is runnig
 # if so -> stop it
 # Export vm
+#print "Exporting vm: %s"%vm_str
+#exportVM(vm_str)
 # Copy to the  remote center
+#print "Copying"
+#copyViaSSH(ssh_url,"%s.ova"%vm_str, remote_file)
 # To the remote center import it
+#print "Importing to the remote site"
+#ret_code = execute_ssh_command(ssh_url,"/usr/bin/VBoxManage import %s"%remote_file)
+
+
 # Modify its network interfaces in such a way that it could be attached to remote network interfaces

@@ -8,7 +8,9 @@
 import os
 import paramiko
 import socket 
+import sys
 from urlparse import urlparse
+from fancy import cyclic
 
 class SFTPCopy:
 	def __init__(self, sshurl):
@@ -29,14 +31,21 @@ class SFTPCopy:
 
 	def copy(self, source, dest):
 		self.connect_via_pkey()
-		self.sftp.put(source, dest)
+		self.sftp.put(source, dest, callback=printTotals)
 
 	def close(self):
 		self.sftp.close()
 		self.t.close()
 
+def printTotals(transferred, toBeTransferred):
+	if transferred%8192 == 0: 
+		sys.stdout.write("\r%c"%cyclic()) 
+		sys.stdout.flush()
+		
 def copyViaSSH(ssh_url, source, remote_target):
 	sftp = SFTPCopy(ssh_url)
 	sftp.copy(source, remote_target)
+	sys.stdout.write("\n") 
+	sys.stdout.flush()
 	sftp.close()
 

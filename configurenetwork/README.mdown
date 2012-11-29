@@ -1,0 +1,5 @@
+# Configure Network Module #
+This module operates over network configuration on different Linux distributions.
+Written in Python, this module has a parent class named ConfigureNetwork.py. 
+Anyone willing to support a particuar system should create a class which inherits the ConfigureNetwork.py methods.
+
